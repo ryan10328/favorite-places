@@ -7,7 +7,6 @@ import {COLORS} from "../constants/colors";
 
 const schema = type({
     title: "string & string > 0",
-    address: "string & string > 0",
 })
 
 const CreateScreen = () => {
@@ -19,7 +18,6 @@ const CreateScreen = () => {
     } = useForm<typeof schema.infer>({
         defaultValues: {
             title: "",
-            address: "",
         },
         resolver: arktypeResolver(schema)
     })
@@ -46,26 +44,17 @@ const CreateScreen = () => {
                                        value={value}/>
                         )
                     }}/>
-                    {errors.title && <Text style={styles.errorText}>{errors.title.message}</Text>}
-                </View>
-                <View style={{gap: 10}}>
-                    <Text style={styles.titleText}>Address</Text>
-                    <Controller name="address" control={control} render={({field: {onChange, onBlur, value}}) => {
-                        return (
-                            <TextInput style={styles.formInput}
-                                       placeholder="Address"
-                                       onBlur={onBlur}
-                                       onChangeText={onChange}
-                                       value={value}/>
-                        )
-                    }}/>
-                    {errors.address && <Text style={styles.errorText}>{errors.address.message}</Text>}
+                    {errors.title &&
+                        <View style={{flexDirection: 'column', alignItems: 'flex-end', paddingHorizontal: 5}}>
+                            <Text style={styles.errorText}>{errors.title.message}</Text>
+                        </View>
+                    }
                 </View>
                 <View>
                     <Pressable
-                        style={({ pressed }) => [
+                        style={({pressed}) => [
                             styles.button,
-                            { backgroundColor: pressed ? COLORS.primary200 : COLORS.primary400 }
+                            {backgroundColor: pressed ? COLORS.primary200 : COLORS.primary500}
                         ]}
                         onPress={handleSubmit(onSubmit)}
                     >
@@ -80,7 +69,8 @@ export default CreateScreen;
 
 const styles = StyleSheet.create({
     titleText: {
-        fontSize: 18,
+        fontSize: 16,
+        fontWeight: "bold",
     },
     formInput: {
         paddingLeft: 6,
@@ -89,6 +79,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
     },
     errorText: {
+        fontWeight: "bold",
         color: COLORS.danger500,
     },
     button: {
@@ -97,6 +88,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     buttonText: {
+        textTransform: "uppercase",
+        fontWeight: "bold",
         color: COLORS.primary50,
         paddingHorizontal: 5,
         paddingVertical: 10,

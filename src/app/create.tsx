@@ -1,9 +1,10 @@
-import {Pressable, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native'
+import {ScrollView, StyleSheet, Text, TextInput, View} from 'react-native'
 import React, {useEffect} from 'react'
 import {Controller, useForm} from "react-hook-form";
 import {arktypeResolver} from "@hookform/resolvers/arktype";
 import {type} from "arktype";
 import {COLORS} from "../constants/colors";
+import Button from "../components/ui/button/Button";
 
 const schema = type({
     title: "string & string > 0",
@@ -51,15 +52,10 @@ const CreateScreen = () => {
                     }
                 </View>
                 <View>
-                    <Pressable
-                        style={({pressed}) => [
-                            styles.button,
-                            {backgroundColor: pressed ? COLORS.primary200 : COLORS.primary500}
-                        ]}
-                        onPress={handleSubmit(onSubmit)}
-                    >
-                        <Text style={styles.buttonText}>Submit</Text>
-                    </Pressable>
+                    <Button variant="primary"
+                            label="Submit"
+                            size="sm"
+                            onPress={handleSubmit(onSubmit)}/>
                 </View>
             </View>
         </ScrollView>
@@ -82,16 +78,4 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         color: COLORS.danger500,
     },
-    button: {
-        backgroundColor: COLORS.primary500,
-        borderRadius: 5,
-        alignItems: 'center',
-    },
-    buttonText: {
-        textTransform: "uppercase",
-        fontWeight: "bold",
-        color: COLORS.primary50,
-        paddingHorizontal: 5,
-        paddingVertical: 10,
-    }
 });

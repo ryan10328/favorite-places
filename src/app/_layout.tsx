@@ -9,7 +9,7 @@ const RootLayout = () => {
     return (
         <Stack screenOptions={{
             headerStyle: {backgroundColor: COLORS.primary500},
-            headerTintColor: COLORS.secondary700,
+            headerTintColor: COLORS.primary50,
             headerTitleStyle: {color: COLORS.primary50},
         }}>
             <Stack.Screen name="index" options={{

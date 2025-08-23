@@ -6,7 +6,7 @@ import items from "../../assets/data/places.json";
 import {COLORS} from "../constants/colors";
 
 const HomeScreen = () => {
-    const places: Place[] = items;
+    const places: Place[] = [];
 
     if (!places || places.length === 0) {
         return <View style={styles.fallbackContainer}>
@@ -33,6 +33,6 @@ const styles = StyleSheet.create({
     },
     fallbackText: {
         fontSize: 16,
-        color: COLORS.primary200,
+        color: COLORS.primary500,
     }
 });

@@ -5,6 +5,8 @@ import {arktypeResolver} from "@hookform/resolvers/arktype";
 import {type} from "arktype";
 import {COLORS} from "../constants/colors";
 import Button from "../components/ui/button/Button";
+import ImagePicker from "../components/ImagePicker";
+import {ImagePickerAsset, ImagePickerResult} from "expo-image-picker";
 
 const schema = type({
     title: "string & string > 0",
@@ -24,32 +26,39 @@ const CreateScreen = () => {
     })
 
     useEffect(() => {
-        trigger().then();
     }, []);
 
     const onSubmit = (values: typeof schema.infer) => {
         console.log(values);
     };
 
+    const handleImageTaken = (image: ImagePickerAsset) => {
+        console.log(image);
+    }
+
     return (
         <ScrollView>
-            <View style={{gap: 20, padding: 10}}>
-                <View style={{gap: 10}}>
+            <View style={styles.container}>
+                <View>
                     <Text style={styles.titleText}>Title</Text>
-                    <Controller name="title" control={control} render={({field: {onChange, onBlur, value}}) => {
-                        return (
-                            <TextInput style={styles.formInput}
-                                       placeholder="Title"
-                                       onBlur={onBlur}
-                                       onChangeText={onChange}
-                                       value={value}/>
-                        )
-                    }}/>
+                    <Controller name="title"
+                                control={control}
+                                render={({field: {onChange, onBlur, value}}) => {
+                                    return <TextInput
+                                        style={[styles.formInput, errors.title ? styles.formInputError : null]}
+                                        placeholder="Title"
+                                        onBlur={onBlur}
+                                        onChangeText={onChange}
+                                        value={value}/>
+                                }}/>
                     {errors.title &&
-                        <View style={{flexDirection: 'column', alignItems: 'flex-end', paddingHorizontal: 5}}>
+                        <View style={styles.errorContainer}>
                             <Text style={styles.errorText}>{errors.title.message}</Text>
                         </View>
                     }
+                </View>
+                <View>
+                    <ImagePicker onImageTaken={handleImageTaken}/>
                 </View>
                 <View>
                     <Button variant="primary"
@@ -65,9 +74,15 @@ const CreateScreen = () => {
 export default CreateScreen;
 
 const styles = StyleSheet.create({
+    container: {
+        gap: 10,
+        margin: 10,
+    },
     titleText: {
-        fontSize: 16,
+        fontSize: 12,
         fontWeight: "bold",
+        color: COLORS.secondary500,
+        marginBottom: 8,
     },
     formInput: {
         paddingLeft: 6,
@@ -75,8 +90,16 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.secondary200,
         borderRadius: 5,
     },
+    formInputError: {
+        borderColor: COLORS.danger500,
+        borderWidth: 1,
+    },
+    errorContainer: {
+        flexDirection: "column",
+        alignItems: "flex-start",
+        paddingHorizontal: 5,
+    },
     errorText: {
-        fontWeight: "bold",
         color: COLORS.danger500,
     },
 });

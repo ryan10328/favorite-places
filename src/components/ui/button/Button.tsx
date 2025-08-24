@@ -1,6 +1,6 @@
 import {Pressable, StyleSheet, Text} from "react-native";
 import {COLORS} from "../../../constants/colors";
-import {AntDesign} from "@expo/vector-icons";
+import {Ionicons} from "@expo/vector-icons";
 import {ButtonProps, ButtonSize, ButtonVariant} from "./types";
 
 
@@ -49,7 +49,7 @@ export const Button = ({
                                 ? colors.pressed
                                 : colors.base,
                     borderColor: outlined ? colors.base : "transparent",
-                    borderWidth: outlined ? 1 : 0,
+                    borderWidth: outlined ? 0.5 : 0,
                     opacity: disabled ? 0.7 : 1,
                     paddingVertical: sizeStyle.paddingVertical,
                     paddingHorizontal: sizeStyle.paddingHorizontal,
@@ -63,7 +63,7 @@ export const Button = ({
             disabled={disabled}
         >
             {icon && (
-                <AntDesign
+                <Ionicons
                     name={icon}
                     size={sizeStyle.fontSize + 3}
                     color={outlined ? colors.base : colors.text}

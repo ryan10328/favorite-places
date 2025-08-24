@@ -4,9 +4,9 @@ import {Controller, useForm} from "react-hook-form";
 import {arktypeResolver} from "@hookform/resolvers/arktype";
 import {type} from "arktype";
 import {COLORS} from "../constants/colors";
-import Button from "../components/ui/button/Button";
 import ImagePicker from "../components/ImagePicker";
-import {ImagePickerAsset, ImagePickerResult} from "expo-image-picker";
+import {ImagePickerAsset} from "expo-image-picker";
+import LocationPicker from "../components/LocationPicker";
 
 const schema = type({
     title: "string & string > 0",
@@ -57,16 +57,15 @@ const CreateScreen = () => {
                         </View>
                     }
                 </View>
-                <View>
-                    <ImagePicker onImageTaken={handleImageTaken}/>
-                </View>
-                <View>
-                    <Button variant="primary"
-                            label="Submit"
-                            size="sm"
-                            outlined
-                            onPress={handleSubmit(onSubmit)}/>
-                </View>
+                <ImagePicker onImageTaken={handleImageTaken}/>
+                <LocationPicker/>
+                {/*<View>*/}
+                {/*    <Button variant="primary"*/}
+                {/*            label="Submit"*/}
+                {/*            size="sm"*/}
+                {/*            outlined*/}
+                {/*            onPress={handleSubmit(onSubmit)}/>*/}
+                {/*</View>*/}
             </View>
         </ScrollView>
     )
@@ -75,7 +74,6 @@ export default CreateScreen;
 
 const styles = StyleSheet.create({
     container: {
-        gap: 10,
         margin: 10,
     },
     titleText: {

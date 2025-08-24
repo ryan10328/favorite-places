@@ -55,6 +55,7 @@ const CreateScreen = () => {
                     <Button variant="primary"
                             label="Submit"
                             size="sm"
+                            outlined
                             onPress={handleSubmit(onSubmit)}/>
                 </View>
             </View>

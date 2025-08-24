@@ -30,7 +30,8 @@ export const Button = ({
                            style,
                            textStyle,
                            disabled = false,
-                           icon
+                           icon,
+                           outlined = false
                        }: ButtonProps) => {
     const colors = VARIANT_TO_COLOR[variant];
     const sizeStyle = SIZE_STYLES[size];
@@ -40,11 +41,15 @@ export const Button = ({
             style={({pressed}) => [
                 styles.button,
                 {
-                    backgroundColor: disabled
-                        ? "#ccc"
-                        : pressed
-                            ? colors.pressed
-                            : colors.base,
+                    backgroundColor: outlined
+                        ? (pressed ? colors.pressed : "transparent")
+                        : disabled
+                            ? "#ccc"
+                            : pressed
+                                ? colors.pressed
+                                : colors.base,
+                    borderColor: outlined ? colors.base : "transparent",
+                    borderWidth: outlined ? 1 : 0,
                     opacity: disabled ? 0.7 : 1,
                     paddingVertical: sizeStyle.paddingVertical,
                     paddingHorizontal: sizeStyle.paddingHorizontal,
@@ -61,14 +66,17 @@ export const Button = ({
                 <AntDesign
                     name={icon}
                     size={sizeStyle.fontSize + 3}
-                    color={colors.text}
+                    color={outlined ? colors.base : colors.text}
                     style={styles.iconStyle}
                 />
             )}
             <Text
                 style={[
                     styles.buttonText,
-                    {color: colors.text, fontSize: sizeStyle.fontSize},
+                    {
+                        color: outlined ? colors.base : colors.text,
+                        fontSize: sizeStyle.fontSize
+                    },
                     textStyle,
                 ]}
             >
